@@ -1,4 +1,5 @@
 # node重温
+[中文文档]http://nodejs.cn/api/
 
 ## node特性
 单线程  
@@ -24,5 +25,40 @@
 Node.js 程序由事件循环开始，到事件循环结束，所有的逻辑都是事件的回调函数，所以 Node.js 始终在事件循环中，
 程序入口就是 事件循环第一个事件的回调函数. 
 事件的回调函数在执行的过程中，可能会发出 I/O 请求或 直接发射(emit)事件，执行完毕后再返回事件循环, 
-事件循环会检查事件队列中有没有未 处理的事件，直到程序结束
+事件循环会检查事件队列中有没有未处理的事件，直到程序结束
+```
+- 模块和包
+```
+模块,包本质上都是一个 nodejs 文件, 某个功能的集合
+module.exports = xxx; exports.xxx = xxx
+let xxx = require('xxx')
+
+一个包需要包含 package.json 文件
+```
+
+## node核心模块
+- 全局对象与变量
+```
+// global: 宿主, 全局对象, 其属性为全局变量
+global = {
+  process: { 当前 node 的进程状态 }
+  process.nextTick(cb)为事件循环设置一项任务，Node.js 会在 下次事件循环调响应时调用 callback。  
+  console,
+  ...
+}
+```
+- 实用工具 util(参考文档)
+```
+const util = require('util');
+
+// util.inherits(subFunc, parentFunc)
+
+// util.inspect: object => string
+let obj = {
+  name: 'huhua',
+  say: () => { },
+  skill: ['node', 'vue', 'ts']
+}
+console.log(obj)
+console.log(util.inspect(obj))
 ```
