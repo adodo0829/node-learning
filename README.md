@@ -62,3 +62,83 @@ let obj = {
 console.log(obj)
 console.log(util.inspect(obj))
 ```
+- 事件驱动 events
+events 模块只提供了一个对象: events.EventEmitter, 是事件发射与事件监听器功能的封装
+```
+// 事件发射器 && 事件监听器
+
+// 引入事件模块对象
+const events = require('events');
+
+// 创建一个事件模块实例
+let event1 = new events.EventEmitter()
+
+// 事件监听器
+// 指定事件名 & 回调
+event1.on('myEvent', (param1, param2) => {
+  console.log('回调 1', param1, param2);
+})
+event1.on('myEvent', (param1, param2) => {
+  console.log('回调 2', param1, param2);
+})
+
+// 事件发射器
+// 当事件发射时,注册到这个事件的事件监听器被依次调用,
+// 事件参数作为回调函数参数传递。
+event1.emit('myEvent', 'huhua', '24')
+```
+```
+EventEmitter.on(event, listener) 为指定事件注册一个监听器，接受一个字
+符串event 和一个回调函数listener。
+EventEmitter.emit(event, [arg1], [arg2], [...]) 发射 event 事件，传递若干可选参数到事件监听器的参数表。
+EventEmitter.once(event, listener) 为指定事件注册一个单次监听器，即
+监听器最多只会触发一次，触发后立刻解除该监听器。
+EventEmitter.removeListener(event, listener) 移除指定事件的某个监听
+器，listener 必须是该事件已经注册过的监听器。
+EventEmitter.removeAllListeners([event]) 移除所有事件的所有监听器， 如果指定 event，则移除指定事件的所有监听器。
+```
+
+- 文件模块 fs
+fs提供了文件的读取、写入、更名、删除、遍历目录等功能...
+```
+const fs = require('fs')
+
+fs.readFile('app.js', 'utf-8', (err, data) => {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log(data);
+  }
+})
+// 相关 api: http://nodejs.cn/api/fs.html
+```
+- http模块
+```
+const http = require('http');
+// http 服务端
+const server = new http.Server()
+// 监听请求事件
+server.on('request', (req, res) => {
+  // console.log(req);
+  res.writeHead(200, {
+    'Content-Type': 'text/html'
+  });
+  res.write('<p>response body</p>');
+  res.end()
+})
+// 开启服务
+server.listen(3000, () => { console.log('listen port 3000') })
+
+// **************************
+// http 客户端
+// http.get()
+// http.request()
+// let req = http.request(options, (res) => {
+//   res.setEncoding('utf8');
+//   res.on('data', (data) => {
+//     console.log(data);
+//   });
+// });
+// req.write(contents);
+// req.end();
+```
