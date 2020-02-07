@@ -142,3 +142,11 @@ server.listen(3000, () => { console.log('listen port 3000') })
 // req.write(contents);
 // req.end();
 ```
+## 第三方模块express
+MVC架构
+```
+路由控制
+静态文件
+模板引擎(模板+数据=>页面)
+rest风格(增删改查: post,delete,put,get)
+```
